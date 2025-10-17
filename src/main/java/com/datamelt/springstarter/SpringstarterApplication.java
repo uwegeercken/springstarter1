@@ -1,17 +1,27 @@
 package com.datamelt.springstarter;
 
 import com.datamelt.springstarter.config.ApplicationConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 
 @EnableConfigurationProperties(ApplicationConfiguration.class)
 @SpringBootApplication
 public class SpringstarterApplication {
 
+	private static final Logger logger = LoggerFactory.getLogger(SpringstarterApplication.class);
+
 	public static void main(String[] args)
 	{
-		SpringApplication.run(SpringstarterApplication.class, args);
+		ApplicationContext context = SpringApplication.run(SpringstarterApplication.class, args);
+		ApplicationConfiguration config = context.getBean(ApplicationConfiguration.class);
+
+		// Now you can use the values from the configuration
+		logger.info("application: {}", config.getName());
+		logger.info("version: {}", config.getVersion());
 	}
 
 }

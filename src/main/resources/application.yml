@@ -2,3 +2,9 @@ app:
   name: "Springstarter"
   version: "v1.0"
   date: "2025-10-17"
+
+logging:
+  level:
+    root: WARN
+    com.datamelt: DEBUG
+    org.springframework: ERROR
