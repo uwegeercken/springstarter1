@@ -1,10 +1,12 @@
-package com.datamelt.springstarter;
+package com.datamelt.springstarter.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
+import java.util.List;
 
 @Entity
 public class Person
@@ -12,19 +14,27 @@ public class Person
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id;
+    @NotBlank(message = "lastname is required")
     private  String lastname;
+    @NotBlank(message = "firstname is required")
     private  String firstname;
+    @Min(value = 0, message = "age must be at least 0")
+    @Max(value = 120, message = "age must be less than or equal to 120")
     private  int age;
+
+    @ElementCollection
+    private List<Email> emails;
 
     public Person()
     {
     }
 
-    public Person(String lastname, String firstname, int age)
+    public Person(String lastname, String firstname, int age, List<Email> emails)
     {
         this.lastname = lastname;
         this.firstname = firstname;
         this.age = age;
+        this.emails = emails;
     }
 
     public Long getId()
@@ -65,5 +75,15 @@ public class Person
     public void setAge(int age)
     {
         this.age = age;
+    }
+
+    public List<Email> getEmails()
+    {
+        return emails;
+    }
+
+    public void setEmails(List<Email> emails)
+    {
+        this.emails = emails;
     }
 }

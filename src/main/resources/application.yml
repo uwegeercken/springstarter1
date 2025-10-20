@@ -1,10 +1,22 @@
 app:
   name: "Springstarter"
   version: "v1.0"
-  date: "2025-10-17"
+  date: "2025-10-20"
+  loadDataOnStartup: false
 
 logging:
   level:
-    root: WARN
-    com.datamelt: DEBUG
-    org.springframework: ERROR
+    root: WARN                     # Set root logging level to WARN
+    com.datamelt: DEBUG            # Keep your application's logging at DEBUG
+    org.springframework: ERROR       # Suppress Spring logs
+    org.hibernate: ERROR            # Suppress general Hibernate logs
+
+spring:
+  datasource:
+    url: jdbc:sqlite:src/main/resources/mydatabase.db
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.SQLiteDialect  # Corrected this line
+    show-sql: false

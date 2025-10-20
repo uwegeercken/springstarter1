@@ -1,7 +1,12 @@
-package com.datamelt.springstarter;
+package com.datamelt.springstarter.rest;
 
+import com.datamelt.springstarter.model.Person;
 import com.datamelt.springstarter.config.ApplicationConfiguration;
 import com.datamelt.springstarter.port.PersonRepository;
+import com.datamelt.springstarter.utility.DataLoader;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +21,7 @@ import java.util.Optional;
 @RequestMapping("/person")
 public class PersonController
 {
+    private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
     private final ApplicationConfiguration configuration;
     private final PersonRepository personRepository;
 
@@ -42,9 +48,11 @@ public class PersonController
     }
 
     @PostMapping("/add")
-    public void addPerson(@RequestBody Person person)
+    public void addPerson(@Valid @RequestBody Person person)
     {
-        personRepository.save(person);
+            personRepository.save(person);
+            logger.info("added person: " + person.getLastname() + ", " + person.getFirstname());
+
     }
 
     // Endpoint for deleting a person by ID

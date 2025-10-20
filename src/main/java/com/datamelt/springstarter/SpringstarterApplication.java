@@ -19,9 +19,8 @@ public class SpringstarterApplication {
 		ApplicationContext context = SpringApplication.run(SpringstarterApplication.class, args);
 		ApplicationConfiguration config = context.getBean(ApplicationConfiguration.class);
 
-		// Now you can use the values from the configuration
-		logger.info("application: {}", config.getName());
-		logger.info("version: {}", config.getVersion());
+		logger.info("welcome to: {}", config.getName() + " " + config.getVersion() + ", last updated: " + config.getDate());
+
 	}
 
 }
